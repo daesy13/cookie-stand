@@ -93,7 +93,13 @@ allStores.push(new Store('Seattle',23,65,6.3));
 allStores.push(new Store('Tokyo',3,4,1.2));
 // allStores.push(new Store();
 
+// console.log('article td:nth-child(2): ', stores.article.td.nth-child(2))
+// var test= document.querySelector("#stores > article > table > tr:nth-child(2) > td:nth-child(2)");
+// #stores > article > table > tr:nth-child(2) > td:nth-child(2)
+// console.log('test: ', test);
 // Total Per Hour
+
+
 var totalHourArr = [];
 var totalPerHour = 0;
 
