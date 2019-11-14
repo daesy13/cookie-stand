@@ -3,18 +3,6 @@
 // Global Variables
 var container = document.getElementById('stores');
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-// var overallTotal = 0;
-// var storeArr=[];
-
-// var hourlyObj = new Object();
-// for (var i = 0; i < hours.length; i++) {
-//   hourlyObj[hours[i]];
-// }
-// for (var i = 0; i < hours.length; i++) {
-//   hourlyObj.key = hours[i];
-// }
-
-
 
 // Global Random Function
 function randomNumCust (min, max, avrg) {
@@ -38,15 +26,17 @@ function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
   this.avrgCookieSales = avrgCookieSales;
   this.cookiesSold = [];
   this.total = 0;
-
-  // num of Cookies a store has to make a DAY + total
-  for (var i = 0; i < 14; i++) {
-    this.cookiesSold.push(randomNumCust(this.minCustomer, this.maxCustomer, this.avrgCookieSales))
-    this.total += this.cookiesSold[i];
-  }
+  this.calculateAverageCookiesSold();
 }
 
-
+// Creating Prototype
+Store.prototype.calculateAverageCookiesSold = function() {
+  for (var i = 0; i < hours.length; i++) {
+    var hourlyCookiesSold = randomNumCust(this.minCustomer, this.maxCustomer, this.avrgCookieSales);
+    this.cookiesSold.push(hourlyCookiesSold);
+    this.total += hourlyCookiesSold;
+  }
+}
 
 // Creates a container
 var article = addElement('article', container);
@@ -74,14 +64,9 @@ Store.prototype.render = function(container) {
 
   for (var i = 0; i < 14; i++) {
     addElement('td', dataRowElem, this.cookiesSold[i]);
-    // hourlyObj.hours[i].push(this.cookiesSold[i]);
   }
-  // console.log('dataRowElem: ', dataRowElem.nth-child(2));
-  // document.querySelector("#stores > article > table > tr:nth-child(2) > td:nth-child(2)")
-  // ***** This add total as last columm
+
   addElement('td', dataRowElem, this.total);
-
-
 }
 
 // console.log(cookiesSold)
@@ -90,14 +75,8 @@ var storeContainer = document.getElementById('stores');
 var allStores = [];
 
 allStores.push(new Store('Seattle',23,65,6.3));
-allStores.push(new Store('Tokyo',3,4,1.2));
-// allStores.push(new Store();
+allStores.push(new Store('Tokyo',3,24,1.2));
 
-// console.log('article td:nth-child(2): ', stores.article.td.nth-child(2))
-// var test= document.querySelector("#stores > article > table > tr:nth-child(2) > td:nth-child(2)");
-// #stores > article > table > tr:nth-child(2) > td:nth-child(2)
-// console.log('test: ', test);
-// Total Per Hour
 
 
 var totalHourArr = [];
@@ -110,64 +89,29 @@ for(var i = 0; i < allStores.length; i++) {
 }
 
 
+function addFooterRow(){
+  // Create tr for the footer
+  // create td elements 14 time slotos plus mega-total 
+  var footerRow = addElement('tr', tableElem);
+  var megaTotal = 0;
 
-// console.log('allStores: ', allStores)
-// #stores > article > table > tr:nth-child(2) > td:nth-child(2)
-// #stores > article > table > tr:nth-child(3) > td:nth-child(2)
+  addElement('td', footerRow, 'TOTAL');
 
-// #stores > article > table > tr:nth-child(2) > td:nth-child(3)
-// #stores > article > table > tr:nth-child(3) > td:nth-child(3)
+  for (var hourIndex = 0; hourIndex < hours.length; hourIndex++) {
+    var td = document.createElement('td');
+    footerRow.appendChild(td);
+    var timeSlotTotal = 0;
+    for (var storeIndex = 0; storeIndex < allStores.length; storeIndex++) {
+      var CurrentStore = allStores[storeIndex]
+      timeSlotTotal += CurrentStore.cookiesSold[hourIndex];
+    
+    }
+    td.textContent = timeSlotTotal;
+    megaTotal += timeSlotTotal;
 
-// #stores > article > table > tr:nth-child(2) > td:nth-child(16)
+  }
 
-// function hourlyTotal(hrsArr, salesArr) {
-//   for (var i = 0; i < hours.length; i++) {
-//     hourlyObj[hours[i]];
-
-//   var dictHourlyTotal = []; // create an empty array
-//   for(var j = 2; j < 17; j++){
-//     dictHourlyTotal.push({
-//       key: hours[j],
-//       value: document.querySelector("#stores > article > table >tr:nth-child(3)[j]")
-//     })
-//   }
-// }
-
-// // console.log('dictHourlyTotal: ', dictHourlyTotal(hourlyTotal))
-
-
-// for(var j=2; j<17; j++){
-//   console.log('hours[i]: ', this.cookiesSold.nth-child(j));
-  
-//   // hourlyObj[hours[j]] = this.cookiesSold[j];
-// }
-  // console.log('eachStore.cookiesSold[i]: ', eachStore.cookiesSold[i])
-  // console.log('hourlyObj: ', hourlyObj)
-// console.log('hourlyObj: ', hourlyObj)
-
-// CREATING OBJECT FOR EVERY HOUR STORES TOTAL
-
-
-// sumVal = document.getElementById("val");
-// console.log('sumVal: ', sumVal);
-
-// console.log('hourlyObj: ', hourlyObj)
-
-// key = hours
-// value = cookiesSold[i]
-
-// *****ADD FOOTER TABLE WITH TOTAL COOKIES OF ALL STORES****************
-// FOOTER
-// **** Need to change this to iterate to all the totals of each store 
-// Creates a footer row
-var dataRowElemm2 = addElement('tr', tableElem);
-
-addElement('td', dataRowElemm2, 'Totals');
-
-// NEED TO ADD 15 TOTALS OF COLUMN SUM
-for (var i = 0; i < 15; i++) {
-  addElement('td', dataRowElemm2, totalPerHour[i]);
+  addElement('td', footerRow, megaTotal);
 }
 
-document.querySelector("#stores > article > table > tr:nth-child(3) > td:nth-child(2)")
-document.querySelector("#stores > article > table > tr:nth-child(3) > td:nth-child(2)")
+addFooterRow();

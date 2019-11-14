@@ -10,13 +10,15 @@ function randomNumCust (min, max, avrg) {
   return Math.floor(randPerCust * avrg);
 }
 
-// standalone function
+// Standalone function
 function addElement(tag, container, text) {
   var element = document.createElement(tag);
   container.appendChild(element);
   element.textContent = text;
   return element;
 }
+
+
 
 // CREATING CONSTRUCTOR FOR STORE
 function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
@@ -26,9 +28,10 @@ function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
   this.avrgCookieSales = avrgCookieSales;
   this.cookiesSold = [];
   this.total = 0;
+  this.location = location
 
   // num of Cookies a store has to make a DAY + total
-  for (var i = 0; i < 14; i++) {
+  for (var i = 0; i < hours.length; i++) {
     this.cookiesSold.push(randomNumCust(this.minCustomer, this.maxCustomer, this.avrgCookieSales))
     this.total += this.cookiesSold[i];
   }
