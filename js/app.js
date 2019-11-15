@@ -1,4 +1,18 @@
 'use strict';
+// ***********TO DO*****************
+//  [ ] locations with addresses,
+//  [ ] hours open
+//  [ ] contact information
+//  [ ] Anything else you feel neccesary.
+
+// **************FORMS TO DO LIST*********************
+// [ ] Create a new HTML form to accept the information for a new cookie stand. Be sure to utulize the <fieldset> tag to help you style it.
+// [ ] Upon sumbission of the HTML form, create an event handler that creates a new instance of a cookie stand that appends to the table upon form submission.
+// [ ] Use the constructor function as your guide to determine what input fields your form needs (hint: also consider what is passed in when creating instances!).
+// [ ] If not complete from lab 7, write a stand-alone function to generate a footer row which will display the total number of cookies sold per hour for all locations. When a new store is added using your form, the totals in the footer row should update to include these new sales numbers.
+// [ ] Anywhere you have repeated chunks of code, apply some DRY principles. Generally, once some chunk of code is appearing for a 3rd time or so, that’s when you want to consider refactoring.
+// [ ] Validate your html through HTML5 validation.
+// [ ] Confirm that your code is following the single responsibility rule. Each function should only do one thing, with the capability to break it out further as needed.
 
 // Global Variables
 var container = document.getElementById('stores');
@@ -28,7 +42,10 @@ function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
   this.avrgCookieSales = avrgCookieSales;
   this.cookiesSold = [];
   this.total = 0;
-  this.location = location
+  // this.location = location;
+  // this.phone = phone;
+  // this.startHour = startHour;
+  // this.endHour = endHour;
 
   // num of Cookies a store has to make a DAY + total
   for (var i = 0; i < hours.length; i++) {
@@ -101,3 +118,46 @@ addElement('td', dataRowElemm2, 'Totals');
 for (var i = 0; i < 15; i++) {
   addElement('td', dataRowElemm2, '$');
 }
+
+
+// *************ADDING NEW STORE******************
+
+var form = document.getElementById('new-store');
+// Store (name, minCustomer, maxCustomer, avrgCookieSales)
+Store.prototype.render = function() {
+  var tbody = document.getElementById('store-entries')
+  var row = document.createElement('tr');
+  tbody.appendChild(row);
+
+  var nameTD = document.createElement('td');
+  row.appendChild(nameTD);
+  nameTD.textContent = this.name;
+
+  var salesTD = document.createElement('td');
+  row.appendChild(salesTD);
+  salesTD.textContent = this.cookiesSold;
+}
+// *************END ADDING NEW STORE******************
+
+
+// *************EVENT HANDLER******************
+
+function submitHandler(event) {
+  event.preventDefault();
+  var newStore = new Store(event.target.storeName.value, parseInt(event.target.minCust.value), parseInt(event.target.maxCust.value), parseInt(event.target.avrCookies.value));
+  console.log('newStore: ', newStore)
+  event.target.reset();
+
+  newStore.render();
+}
+
+console.log('event.target.storeName.value: ', event.target.storeName.value);
+console.log('event.target.minCust.value: ', event.target.minCust.value);
+console.log('event.target.maxCust.value: ', event.target.maxCust.value);
+console.log('event.target.avrCookies.value: ', event.target.avrCookies.value);
+
+
+
+form.addEventListener('submit', submitHandler);
+
+// *************END EVENT HANDLER******************

@@ -62,7 +62,7 @@ Store.prototype.render = function(container) {
 
   addElement('td', dataRowElem, this.name);
 
-  for (var i = 0; i < 14; i++) {
+  for (var i = 0; i < hours.length; i++) {
     addElement('td', dataRowElem, this.cookiesSold[i]);
   }
 
@@ -71,6 +71,7 @@ Store.prototype.render = function(container) {
 
 // console.log(cookiesSold)
 var storeContainer = document.getElementById('stores');
+console.log('storeContainer: ', storeContainer)
 
 var allStores = [];
 
@@ -115,3 +116,47 @@ function addFooterRow(){
 }
 
 addFooterRow();
+
+// *************ADDING NEW STORE******************
+
+var form = document.getElementById('new-store');
+// Store (name, minCustomer, maxCustomer, avrgCookieSales)
+Store.prototype.render = function() {
+  var tbody = document.getElementById('stores')
+  var row = document.createElement('tr');
+  tbody.appendChild(row);
+
+  var nameTD = document.createElement('td');
+  row.appendChild(nameTD);
+  nameTD.textContent = this.name;
+
+  var salesTD = document.createElement('td');
+  row.appendChild(salesTD);
+  salesTD.textContent = this.cookiesSold;
+}
+// *************END ADDING NEW STORE******************
+
+
+// *************EVENT HANDLER******************
+
+function submitHandler(event) {
+  event.preventDefault();
+  var newStore = new Store(event.target.storeName.value, parseInt(event.target.minCust.value), parseInt(event.target.maxCust.value), parseInt(event.target.avrCookies.value));
+  console.log('newStore: ', newStore)
+  // console.log('event.target.storeName.value: ', event.target.storeName.value);
+  // console.log('event.target.minCust.value: ', event.target.minCust.value);
+  // console.log('event.target.maxCust.value: ', event.target.maxCust.value);
+  // console.log('event.target.avrCookies.value: ', event.target.avrCookies.value);
+
+  
+
+  newStore.render();
+  allStores.push(newStore);
+  event.target.reset();
+}
+
+console.log('allStores: ',allStores )
+form.addEventListener('submit', submitHandler);
+
+
+// *************END EVENT HANDLER******************
