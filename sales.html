@@ -13,12 +13,27 @@
     <head>
         <title>Cookie Stand</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans|Pacifico&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h1>Cookies' Daily Sales Calculator</h1>
+        <header>
+            <a href="index.html" id="logo">
+                <h1>Salmon Cookies</h1>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sales.html" class="selected">Data</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                </ul>
+            </nav>
+        </header>
+        
         <form id="new-store" name="new-store" action="" onsubmit="return" method="post">
             <!-- FIELDSET CREATES A BOX AROUND IT-->
             <fieldset>
+            <legend><h1>Daily Sales Calculator</h1></legend>
             <label for="storeName">Store Name:</label><br>
             <input name="storeName" type="text" required/>
             <br><br>
@@ -43,7 +58,7 @@
             </div>
         </main>
         <footer>
-            <!-- footer goes here -->
+            <p>&copy; 2019 Daesy Stephens.</p>
         </footer>
         <script src="js/testapp.js"></script>
     </body>
