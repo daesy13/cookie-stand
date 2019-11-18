@@ -92,9 +92,13 @@ nav a.selected, nav a:hover {
 /* ********CENTER BLOCK WITH LOGO INDEX PAGE********** */
 
 .img-fish {
-  position: relative;
-  text-align: center;
+  /* position: relative; */
+  /* text-align: center; */
   margin-bottom: 100px;;
+}
+
+img.salmon {
+  /* padding-top: 150px; */
 }
 
 .centered {
