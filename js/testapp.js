@@ -1,9 +1,12 @@
 'use strict';
 
 // Global Variables
-// allStores.all = [];
 var container = document.getElementById('stores');
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+var article = addElement('article', container); // Creates a container
+var tableElem = addElement('table', article); // Creates a table
+var allStores = [];
+var form = document.getElementById('new-store'); // ADDING NEW STORE
 
 // Global Random Function
 function randomNumCust (min, max, avrg) {
@@ -18,7 +21,6 @@ function addElement(tag, prevTag, text) {
   element.textContent = text;
   return element;
 }
-
 
 // CREATING CONSTRUCTOR FOR STORE
 function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
@@ -41,59 +43,35 @@ Store.prototype.calculateAverageCookiesSold = function() {
   }
 }
 
-
-// Creates a container
-var article = addElement('article', container);
-var tableElem = addElement('table', article);
-// Creates a table
-
-
 // Creates a header row
 var makeHeaderRow = function(){
-  
-  
   var headerRowElem = addElement('tr', tableElem);
   addElement('th', headerRowElem, ' ');
-
   for (var i = 0; i < hours.length; i++) {
     addElement('th', headerRowElem, hours[i]);
   }
-
   addElement('th', headerRowElem, 'Daily Location Total');
 }
-
-makeHeaderRow();
 
 // ADD BODY OF TABLE
 Store.prototype.render = function() {
   var dataRowElem = addElement('tr', tableElem);
   addElement('td', dataRowElem, this.name);
-
   for (var i = 0; i < hours.length; i++) {
     addElement('td', dataRowElem, this.cookiesSold[i]);
   }
-
   addElement('td', dataRowElem, this.total);
 }
 
-var allStores = [];
+// Adds Store into new row
+function addStoreToTable (){
+  for(var i = 0; i < allStores.length; i++) {
+    var eachStore = allStores[i];
+    eachStore.render();
+  }
+};
 
-allStores.push(new Store('Seattle',23,65,6.3));
-allStores.push(new Store('Tokyo',3,24,1.2));
-
-// var totalHourArr = [];
-// var totalPerHour = 0;
-
-// Iterates each row
-for(var i = 0; i < allStores.length; i++) {
-  var eachStore = allStores[i];
-  eachStore.render();
-}
-
-// ADD THIS LATER AND COMMENT THE SAME FUNC INSIDE ADDFOOTERROW
-// var tfood
-// var footerRow = addElement('tr', tableElem);
-
+// Adds a footerRow
 function addFooterRow(){
   // Create tr for the footer
   // create td elements 14 time slotos plus mega-total 
@@ -116,27 +94,6 @@ function addFooterRow(){
   addElement('td', footerRow, megaTotal);
 }
 
-addFooterRow();
-
-// *************ADDING NEW STORE******************
-var form = document.getElementById('new-store');
-// Store (name, minCustomer, maxCustomer, avrgCookieSales)
-Store.prototype.render = function() {
-  var tbody = document.getElementById('stores')
-  var row = document.createElement('tr');
-  tbody.appendChild(row);
-
-  var nameTD = document.createElement('td');
-  row.appendChild(nameTD);
-  nameTD.textContent = this.name;
-
-  var salesTD = document.createElement('td');
-  row.appendChild(salesTD);
-  salesTD.textContent = this.cookiesSold;
-}
-// *************END ADDING NEW STORE******************
-
-
 // *************EVENT HANDLER******************
 // handle the updated footer row!!!
 // add this unde newSotre.render -> footerRow.innerHTML = "";
@@ -144,26 +101,23 @@ Store.prototype.render = function() {
 function submitHandler(event) {
   event.preventDefault();
   var newStore = new Store(event.target.storeName.value, parseInt(event.target.minCust.value), parseInt(event.target.maxCust.value), parseInt(event.target.avrCookies.value));
-  console.log('newStore: ', newStore)
-  // console.log('event.target.storeName.value: ', event.target.storeName.value);
-  // console.log('event.target.minCust.value: ', event.target.minCust.value);
-  // console.log('event.target.maxCust.value: ', event.target.maxCust.value);
-  // console.log('event.target.avrCookies.value: ', event.target.avrCookies.value);
-  
+  tableElem.deleteRow(-1);
   newStore.render();
   allStores.push(newStore);
   event.target.reset();
   console.log('newStore: ',newStore )
+  addFooterRow()
 }
 
-
-console.log('allStores: ',allStores )
+// !!!!!!it will run submitHandler function when submit happens on whatever the form variable is!!!!!!
 form.addEventListener('submit', submitHandler);
 
-
-// *************END EVENT HANDLER******************
-
-
 // ***************INVOKE FUNCTION*********************
-
-
+makeHeaderRow();
+allStores.push(new Store('Seattle',23,65,6.3));
+allStores.push(new Store('Tokyo',3,24,1.2));
+allStores.push(new Store('Dubai', 11,	38,	3.7));
+allStores.push(new Store('Paris',	20,	38,	2.3));
+allStores.push(new Store('Lima', 2,	16,	4.6));
+addStoreToTable();
+addFooterRow();
