@@ -1,0 +1,197 @@
+/* [x] A custom Google font for highlights */
+/* [ ] A specified standard sans-serif web font for data (such as Arial, Verdana, or Helvetica) */
+/* [x] A specified standard serif web font for text (such as Georgia, Times, etc.) */
+/* [x] Specified different font colors for all three font usages */
+/* [x] A background color for the default page background (make sure font colors have good contrast and are readable on this background) */
+/* [x] A different background color for elements such boxes and tables (so make sure the font colors contrast against this well, too!) */
+/* [x] Anything else you’d like to add related to style. But remember: simplicity, clarity, and consistency are good things in design. */
+/* [x] Be thoughtful about layout and overall organization of the page. */
+/* [x] Include all of the typical stuff that you’ll find on the home page of a business: locations, hours, contact information, some text about how awesome the business is, etc. Be creative, and again, think about what is meaningful to a typical end user. */
+
+
+/* ********NAV BAR********** */
+/* header { 
+  float: left;
+  margin: 0 0 30px 0;
+  padding: 5px 0 0 0;
+  width: 100%;
+  margin-bottom: 90px;
+}  */
+
+body {
+  background-color: #eae7dc;
+  width: 960px;
+  margin: 0 auto;
+}
+
+#logo {
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  margin: 15px 0;
+  font-size: 1.75em;
+  font-weight: normal;
+  line-height: 0.8em;
+  color: gray;
+  font-size: 2.5em;
+}
+
+nav {
+  text-align: center;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0 10px;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  font-family: 'Crimson Text', serif;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 15px 10px;
+  color: #ff652f;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+nav {
+  background: none;
+  float: right;
+  font-size: 1.125em;
+  margin-right: 5%;
+  text-align: right;
+  width: 45%;
+}
+
+/* selected nav link */
+nav a.selected, nav a:hover {
+  color: #4CAF50;
+}
+
+#logo {
+  float: left;
+  margin-left: 0;
+  text-align: left;
+  width: 45%;
+}
+
+/* ********CENTER BLOCK WITH LOGO INDEX PAGE********** */
+
+.img-fish {
+  position: relative;
+  text-align: center;
+  margin-bottom: 100px;;
+}
+
+.centered {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.centered h2 {
+  font-size: 3.0em;
+  color: black;
+}
+
+/* ********TEXT INDEX.HTML********** */
+P {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.00em;
+  font-weight: 800;
+}
+
+/* ********FIELDSET********** */
+fieldset {
+  font-size: 1.00em;
+  font-weight: 800;
+  color: #FF7F50;
+}
+
+button {
+  display: inline;
+  color: #FF7F50;
+  font-family: Open, 'Sans';
+  font-size: 1.0em;
+  font-weight: bolder;
+  border-radius: 4px;
+}
+
+/* ********TABLE********** */
+
+article th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+  table-layout: fixed;
+  width: 100px;
+}
+
+article td:nth-child(1) {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+article tr:nth-child(even){background-color: #f2f2f2;}
+
+article td {
+  font-family: Verdana, Helvetica, sans-serif;
+}
+
+/* ********INDEX********** */
+
+h2 {
+  text-align: center;
+  color: gray;
+  font-size: 2.5em;
+}
+
+.salmon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ********FOOTER********** */
+
+footer {
+  text-align: center;
+  font-weight: bolder;
+  color: #747474;
+  padding-top: 100px;
+  position: relative;
+}
+
+/* ************************
+       LOCATION HTML
+***************************/
+
+.contact-info {
+  list-style-type: none;
+}
+
+li, li a {
+  color: #ff652f;
+  font-weight: bold;
+  font-size: 110%;
+}
