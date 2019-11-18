@@ -1,6 +1,7 @@
 'use strict';
 
 // Global Variables
+// allStores.all = [];
 var container = document.getElementById('stores');
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
@@ -10,13 +11,14 @@ function randomNumCust (min, max, avrg) {
   return Math.floor(randPerCust * avrg);
 }
 
-// standalone function
-function addElement(tag, container, text) {
+// CREATE AN ELEMENT TO SHOW IN HTML
+function addElement(tag, prevTag, text) {
   var element = document.createElement(tag);
-  container.appendChild(element);
+  prevTag.appendChild(element);
   element.textContent = text;
   return element;
 }
+
 
 // CREATING CONSTRUCTOR FOR STORE
 function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
@@ -27,9 +29,10 @@ function Store (name, minCustomer, maxCustomer, avrgCookieSales) {
   this.cookiesSold = [];
   this.total = 0;
   this.calculateAverageCookiesSold();
+  // Store.all.push(this);
 }
 
-// Creating Prototype
+// CREATING PROTOTYPE
 Store.prototype.calculateAverageCookiesSold = function() {
   for (var i = 0; i < hours.length; i++) {
     var hourlyCookiesSold = randomNumCust(this.minCustomer, this.maxCustomer, this.avrgCookieSales);
@@ -38,28 +41,32 @@ Store.prototype.calculateAverageCookiesSold = function() {
   }
 }
 
+
 // Creates a container
 var article = addElement('article', container);
-
-// Creates a table
 var tableElem = addElement('table', article);
+// Creates a table
+
 
 // Creates a header row
-var headerRowElem = addElement('tr', tableElem);
+var makeHeaderRow = function(){
+  
+  
+  var headerRowElem = addElement('tr', tableElem);
+  addElement('th', headerRowElem, ' ');
 
-addElement('th', headerRowElem, ' ');
+  for (var i = 0; i < hours.length; i++) {
+    addElement('th', headerRowElem, hours[i]);
+  }
 
-for (var i = 0; i < 14; i++) {
-  addElement('th', headerRowElem, hours[i]);
+  addElement('th', headerRowElem, 'Daily Location Total');
 }
 
-addElement('th', headerRowElem, 'Daily Location Total');
-
+makeHeaderRow();
 
 // ADD BODY OF TABLE
-Store.prototype.render = function(container) {
+Store.prototype.render = function() {
   var dataRowElem = addElement('tr', tableElem);
-
   addElement('td', dataRowElem, this.name);
 
   for (var i = 0; i < hours.length; i++) {
@@ -69,35 +76,31 @@ Store.prototype.render = function(container) {
   addElement('td', dataRowElem, this.total);
 }
 
-// console.log(cookiesSold)
-var storeContainer = document.getElementById('stores');
-console.log('storeContainer: ', storeContainer)
-
 var allStores = [];
 
 allStores.push(new Store('Seattle',23,65,6.3));
 allStores.push(new Store('Tokyo',3,24,1.2));
 
-
-
-var totalHourArr = [];
-var totalPerHour = 0;
+// var totalHourArr = [];
+// var totalPerHour = 0;
 
 // Iterates each row
 for(var i = 0; i < allStores.length; i++) {
   var eachStore = allStores[i];
-  eachStore.render(storeContainer);
+  eachStore.render();
 }
 
+// ADD THIS LATER AND COMMENT THE SAME FUNC INSIDE ADDFOOTERROW
+// var tfood
+// var footerRow = addElement('tr', tableElem);
 
 function addFooterRow(){
   // Create tr for the footer
   // create td elements 14 time slotos plus mega-total 
   var footerRow = addElement('tr', tableElem);
-  var megaTotal = 0;
-
   addElement('td', footerRow, 'TOTAL');
 
+  var megaTotal = 0;
   for (var hourIndex = 0; hourIndex < hours.length; hourIndex++) {
     var td = document.createElement('td');
     footerRow.appendChild(td);
@@ -105,11 +108,9 @@ function addFooterRow(){
     for (var storeIndex = 0; storeIndex < allStores.length; storeIndex++) {
       var CurrentStore = allStores[storeIndex]
       timeSlotTotal += CurrentStore.cookiesSold[hourIndex];
-    
     }
     td.textContent = timeSlotTotal;
     megaTotal += timeSlotTotal;
-
   }
 
   addElement('td', footerRow, megaTotal);
@@ -118,7 +119,6 @@ function addFooterRow(){
 addFooterRow();
 
 // *************ADDING NEW STORE******************
-
 var form = document.getElementById('new-store');
 // Store (name, minCustomer, maxCustomer, avrgCookieSales)
 Store.prototype.render = function() {
@@ -138,6 +138,8 @@ Store.prototype.render = function() {
 
 
 // *************EVENT HANDLER******************
+// handle the updated footer row!!!
+// add this unde newSotre.render -> footerRow.innerHTML = "";
 
 function submitHandler(event) {
   event.preventDefault();
@@ -147,16 +149,21 @@ function submitHandler(event) {
   // console.log('event.target.minCust.value: ', event.target.minCust.value);
   // console.log('event.target.maxCust.value: ', event.target.maxCust.value);
   // console.log('event.target.avrCookies.value: ', event.target.avrCookies.value);
-
   
-
   newStore.render();
   allStores.push(newStore);
   event.target.reset();
+  console.log('newStore: ',newStore )
 }
+
 
 console.log('allStores: ',allStores )
 form.addEventListener('submit', submitHandler);
 
 
 // *************END EVENT HANDLER******************
+
+
+// ***************INVOKE FUNCTION*********************
+
+
