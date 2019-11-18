@@ -1,22 +1,65 @@
 <!DOCTYPE html>
 <!-- [ ] Calculate Daily sales projections for each location on a page called – “sales.html” -->
+<!-- **************FORMS TO DO LIST********************* -->
+<!-- [x] Create a new HTML form to accept the information for a new cookie stand. Be sure to utulize the <fieldset> tag to help you style it. -->
+<!-- [ ] Upon sumbission of the HTML form, create an event handler that creates a new instance of a cookie stand that appends to the table upon form submission. -->
+<!-- [ ] Use the constructor function as your guide to determine what input fields your form needs (hint: also consider what is passed in when creating instances!). -->
+<!-- [ ] If not complete from lab 7, write a stand-alone function to generate a footer row which will display the total number of cookies sold per hour for all locations. When a new store is added using your form, the totals in the footer row should update to include these new sales numbers. -->
+<!-- [ ] Anywhere you have repeated chunks of code, apply some DRY principles. Generally, once some chunk of code is appearing for a 3rd time or so, that’s when you want to consider refactoring. -->
+<!-- [x] Validate your html through HTML5 validation. -->
+<!-- [ ] Confirm that your code is following the single responsibility rule. Each function should only do one thing, with the capability to break it out further as needed. -->
+
 <html>
     <head>
         <title>Cookie Stand</title>
-        <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans|Pacifico&display=swap" rel="stylesheet">
     </head>
     <body>
+        <header>
+            <a href="index.html" id="logo">
+                <h1>Salmon Cookies</h1>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sales.html" class="selected">Data</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <form id="new-store" name="new-store" action="" onsubmit="return" method="post">
+            <!-- FIELDSET CREATES A BOX AROUND IT-->
+            <fieldset>
+            <legend><h1>Daily Sales Calculator</h1></legend>
+            <label for="storeName">Store Name:</label><br>
+            <input name="storeName" type="text" required/>
+            <br><br>
+            <label for="minCust">Minimum Amount of Customers:</label><br>
+            <input name="minCust" type="number" required/>
+            <br><br>
+            <label for="maxCust">Maximum Amount of Customers:</label><br>
+            <input name="maxCust" type="number" required/>
+            <br><br>
+            <label for="avrCookies">Average of Cookies Sold per Day:</label><br>
+            <input name="avrCookies" type="number" required/>
+            <br><br>
+            <button onclick="">Submit</button>
+            </fieldset>
+        </form>
+        <br><br>
         <header>
             <!-- header goes here -->
         </header>
         <main>
             <div id = 'stores'>
-                <!-- Daily Sales goes Here -->
             </div>
         </main>
         <footer>
-            <!-- footer goes here -->
+            <p>&copy; 2019 Daesy Stephens.</p>
         </footer>
-        <script src="js/app.js"></script>
+        <script src="js/testapp.js"></script>
     </body>
 </html>
